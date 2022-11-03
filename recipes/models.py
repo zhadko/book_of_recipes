@@ -6,7 +6,9 @@ class Recipe(models.Model):
     name = models.CharField(max_length=100,
                             unique=True)
     photo = models.ImageField(upload_to='images/recipes',
-                              max_length=100)
+                              max_length=100,
+                              null=True,
+                              blank=True)
     description = models.TextField()
 
     def __str__(self):

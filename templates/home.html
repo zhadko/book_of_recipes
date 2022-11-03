@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1> Django Administration </h1>
+<br>
+{% if user.is_superuser%}
+<h5> Welcome! You have successfully logged in :)</h5>
+{% else %}
+<h5> Welcome! <span><a href="{% url 'accounts:login'%}" >Log in</a></span> to the account :)</h5>
+{% endif %}
+{% endblock %}

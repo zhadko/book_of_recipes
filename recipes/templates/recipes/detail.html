@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Recipe{% endblock %}
+
+{% block content %}
+<h1>Recipe</h1>
+<div class="row">
+    <div class="col-md">
+        <table class="table table-striped">
+            <tr>
+                <th width="33%">Name</th>
+                <th width="33%">Photo</th>
+                <th width="33%">Description</th>
+
+            </tr>
+            <tr>
+                <td> {{object.name}} </td>
+                <td>
+                    {% if object.image %}
+                        <img src="{{ object.image.url }}">
+                    {% else %}
+                        No photo
+                    {% endif %}
+                </td>
+                <td>{{object.description}}</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a href="{% url 'recipes:home' %}">
+            <button type="button" class="btn btn-light">Back to list</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
