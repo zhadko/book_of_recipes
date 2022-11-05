@@ -1,0 +1,41 @@
+[
+{
+  "model": "recipes.recipe",
+  "pk": 1,
+  "fields": {
+    "name": "Борщ",
+    "photo": "images/recipes/борщ.jpg",
+    "description": "Текст рецепту"
+  }
+},
+{
+  "model": "recipes.recipe",
+  "pk": 2,
+  "fields": {
+    "name": "Вареники з вишнею",
+    "photo": "images/recipes/вареники2.png",
+    "description": "Текст рецепту"
+  }
+},
+{
+  "model": "recipes.recipe",
+  "pk": 3,
+  "fields": {
+    "name": "Драники",
+    "photo": "",
+    "description": "Текст рецепту"
+  }
+},
+{
+  "model": "bot_users.user",
+  "pk": 699006075,
+  "fields": {
+    "first_name": "Назар",
+    "last_name": null,
+    "username": "corrrvo",
+    "name_from_form": "Nazar",
+    "user_gender": 1,
+    "user_state": 3
+  }
+}
+]
