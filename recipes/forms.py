@@ -10,10 +10,7 @@ class RecipeForm(forms.ModelForm):
     }))
 
     photo = forms.ImageField(label='Photo', required=False)
-    description = forms.CharField(label='Description', widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Description'
-    }))
+    description = forms.CharField(label='Description of the recipe', widget=forms.Textarea(attrs={"rows" : "5"}))
 
     class Meta:
         model = Recipe

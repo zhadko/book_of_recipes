@@ -15,8 +15,8 @@
             <tr>
                 <td> {{object.name}} </td>
                 <td>
-                    {% if object.image %}
-                        <img src="{{ object.image.url }}">
+                    {% if object.photo %}
+                        <img height=100 src="{{ object.photo.url }}">
                     {% else %}
                         No photo
                     {% endif %}

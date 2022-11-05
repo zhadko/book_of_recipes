@@ -17,8 +17,8 @@ class User(models.Model):
         (1, "man"),
         (2, "woman"),
     ]
-    user_gender = models.PositiveSmallIntegerField(choices=GENDERS)
-    user_id = models.AutoField(primary_key=True)
+    user_gender = models.PositiveSmallIntegerField(choices=GENDERS, unique=False)
+    user_id = models.PositiveIntegerField(primary_key=True, unique=True)
 
     STATES = [
         (1, "start_form"),
