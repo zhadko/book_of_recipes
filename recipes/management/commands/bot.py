@@ -69,7 +69,7 @@ def start(message):
     try:
         user = User.objects.filter(user_id=message.from_user.id).last()
         name = user.name_from_form
-        gender = 1 if user.user_gender == 1 else 2
+        gender = 'Man' if user.user_gender == 1 else 'Woman'
         gender_id = user.user_gender
         if user.user_state == 1:
             bot.send_message(message.from_user.id, 'Welcome to RecipesBookBot :)')
