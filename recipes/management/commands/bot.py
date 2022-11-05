@@ -93,8 +93,8 @@ def start_again(message):
 
 def get_name(message):
     if message.text.isalpha():
-        global from_user
-        from_user = message.from_user
+        global msg
+        msg = message
         name = message.text
         bot.send_message(message.from_user.id, 'What is your gender? ;)', reply_markup=markup)
     else:
@@ -111,9 +111,9 @@ def callback_inline(call):
                 gender = call.data
                 global gender_id
                 gender_id = 1 if gender == 'Man' else 2
-                msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                                            text='Thank you ;)',
-                                            reply_markup=None)
+                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      text='Thank you ;)',
+                                      reply_markup=None)
                 reg(msg)
     except Exception as e:
         bot.send_message(call.message.chat.id, 'Oh...Something went wrong. Please, try again later :(',
@@ -123,6 +123,7 @@ def callback_inline(call):
 
 @bot.message_handler(content_types=['text'])
 def reg(message):
+    from_user = message.from_user
     if User.objects.filter(user_id=from_user.id).last():
         user = User.objects.filter(user_id=from_user.id)
         user.update(user_id=from_user.id,
