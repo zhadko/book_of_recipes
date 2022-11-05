@@ -61,9 +61,16 @@ class SimpleMiddleware(BaseMiddleware):
 @bot.message_handler(commands=['start'])
 def start(message):
     global user_state
+    global name
+    global gender_id
+    global gender
+
     user_state = 1
     try:
         user = User.objects.filter(user_id=message.from_user.id).last()
+        name = user.name_from_form
+        gender = user.user_gender
+        gender_id = 1 if gender == 'Man' else 2
         if user.user_state == 1:
             bot.send_message(message.from_user.id, 'Welcome to RecipesBookBot :)')
             msg = bot.send_message(message.from_user.id, "What is your name? ;)")
@@ -72,7 +79,7 @@ def start(message):
             msg = bot.send_message(message.from_user.id, 'Welcome to RecipesBookBot :)', reply_markup=menu)
             bot.register_next_step_handler(msg, handled_text)
         elif user.user_state == 3:
-            bot.send_message(message.from_user.id, 'Welcome to RecipesBookBot :)')
+            bot.send_message(message.chat.id, 'Welcome to RecipesBookBot :)')
             recipes_markup(message)
     except User.DoesNotExist:
         bot.send_message(message.from_user.id, "Hello! What is your name? ;)")
@@ -88,7 +95,6 @@ def get_name(message):
     if message.text.isalpha():
         global from_user
         from_user = message.from_user
-        global name
         name = message.text
         bot.send_message(message.from_user.id, 'What is your gender? ;)', reply_markup=markup)
     else:
@@ -178,10 +184,12 @@ def recipe_view(message):
             if recipe.photo:
                 bot.send_photo(message.from_user.id, recipe.photo)
                 bot.send_message(message.from_user.id, recipe.description)
-                bot.register_next_step_handler(message, recipe_view)
+                recipes_markup(message)
             else:
                 bot.send_message(message.from_user.id, recipe.description)
-                bot.register_next_step_handler(message, recipe_view)
+                recipes_markup(message)
+
+
         except Exception as e:
             bot.send_message(message.from_user.id, 'I don`t know this recipe :(')
             bot.register_next_step_handler(message, recipe_view)
