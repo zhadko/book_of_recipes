@@ -124,7 +124,7 @@ def callback_inline(call):
 
 @bot.message_handler(content_types=['text'])
 def reg(message):
-    current_user = msg.from_user
+    current_user = message.from_user
     if User.objects.filter(user_id=current_user.id).last():
         user = User.objects.filter(user_id=current_user.id)
         user.update(user_id=current_user.id,
@@ -148,7 +148,7 @@ def reg(message):
         bot.send_message(current_user.id,
                          'Registration completed successfully! :)',
                          reply_markup=menu)
-    User.objects.filter(user_id=current_user.id).update(user_state=2)
+    User.objects.filter(user_id=message.from_user.id).update(user_state=2)
     bot.register_next_step_handler(message, handled_text)
 
 
@@ -182,6 +182,8 @@ def recipe_view(message):
     if message.text == 'Back to menu':
         bot.send_message(message.from_user.id, 'Main menu :)', reply_markup=menu)
         bot.register_next_step_handler(message, handled_text)
+    elif message.text == '/start':
+        recipes_markup(message)
     else:
         try:
             recipe = Recipe.objects.filter(name=message.text).last()
@@ -193,8 +195,6 @@ def recipe_view(message):
             else:
                 bot.send_message(message.from_user.id, recipe.description)
                 recipes_markup(message)
-
-
         except Exception as e:
             bot.send_message(message.from_user.id, 'I don`t know this recipe :(')
             bot.register_next_step_handler(message, recipe_view)
