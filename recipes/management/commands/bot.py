@@ -79,7 +79,7 @@ def start(message):
             bot.send_message(message.chat.id, 'Welcome to RecipesBookBot :)')
             bot.send_message(message.from_user.id, 'Choose your recipe:', reply_markup=recipes)
             bot.register_next_step_handler(message, recipe_view)
-    except User.DoesNotExist:
+    except Exception as e:
         bot.send_message(message.from_user.id, "Hello! What is your name? ;)")
         bot.register_next_step_handler(message, get_name)
 
