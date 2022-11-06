@@ -153,11 +153,10 @@ def reg(message):
 @bot.message_handler(content_types=['text'])
 def handled_text(message):
     user = User.objects.filter(user_id=message.from_user.id).last()
-    name = user.name_from_form
-    gender = 'Man' if user.user_gender == 1 else 'Woman'
+    user_gender = 'Man' if user.user_gender == 1 else 'Woman'
 
     if message.text == 'About me':
-        bot.send_message(message.from_user.id, f'Your name is {name} and you are a {gender} :)')
+        bot.send_message(message.from_user.id, f'Your name is {user.name_from_form} and you are a {user_gender} :)')
         bot.register_next_step_handler(message, handled_text)
     elif message.text == 'Recipes':
         User.objects.filter(user_id=message.from_user.id).update(user_state=3)

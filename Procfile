@@ -1,3 +1,3 @@
 web: gunicorn book_of_recipes.wsgi
 release: python manage.py migrate
-bot: python manage.py bot.py
+worker: python manage.py bot
