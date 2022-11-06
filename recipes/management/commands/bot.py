@@ -61,16 +61,9 @@ class SimpleMiddleware(BaseMiddleware):
 @bot.message_handler(commands=['start'])
 def start(message):
     global user_state
-    global name
-    global gender_id
-    global gender
-
     user_state = 1
     try:
         user = User.objects.filter(user_id=message.from_user.id).last()
-        name = user.name_from_form
-        gender = 'Man' if user.user_gender == 1 else 'Woman'
-        gender_id = user.user_gender
         if user.user_state == 1:
             bot.send_message(message.from_user.id, 'Welcome to RecipesBookBot :)')
             msg = bot.send_message(message.from_user.id, "What is your name? ;)")
@@ -100,7 +93,8 @@ def get_name(message):
     if message.text.isalpha():
         global msg
         msg = message
-        name = message.text
+        global name
+        name = msg.text
         bot.send_message(message.from_user.id, 'What is your gender? ;)', reply_markup=markup)
     else:
         bot.send_message(message.from_user.id, "This name is invalid! :(")
@@ -152,20 +146,24 @@ def reg(message):
         bot.send_message(from_user.id,
                          'Registration completed successfully! :)',
                          reply_markup=menu)
-    user = User.objects.filter(user_id=message.from_user.id).update(user_state=2)
+    User.objects.filter(user_id=message.from_user.id).update(user_state=2)
     bot.register_next_step_handler(message, handled_text)
 
 
 @bot.message_handler(content_types=['text'])
 def handled_text(message):
+    user = User.objects.filter(user_id=message.from_user.id).last()
+    name = user.name_from_form
+    gender = 'Man' if user.user_gender == 1 else 'Woman'
+
     if message.text == 'About me':
         bot.send_message(message.from_user.id, f'Your name is {name} and you are a {gender} :)')
         bot.register_next_step_handler(message, handled_text)
     elif message.text == 'Recipes':
-        user = User.objects.filter(user_id=message.from_user.id).update(user_state=3)
+        User.objects.filter(user_id=message.from_user.id).update(user_state=3)
         recipes_markup(message)
     elif message.text == '/start':
-        user = User.objects.filter(user_id=message.from_user.id).update(user_state=1)
+        User.objects.filter(user_id=message.from_user.id).update(user_state=1)
         start(message)
 
 
