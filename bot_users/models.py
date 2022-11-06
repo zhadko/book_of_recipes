@@ -10,7 +10,9 @@ class User(models.Model):
                                  blank=True,
                                  null=True)
     username = models.CharField(max_length=100,
-                                unique=True)
+                                unique=True,
+                                blank=True,
+                                null=True)
     name_from_form = models.CharField(max_length=50)
 
     GENDERS = [

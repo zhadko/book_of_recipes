@@ -95,6 +95,8 @@ def get_name(message):
         msg = message
         global name
         name = msg.text
+        global from_user
+        from_user = message.from_user
         bot.send_message(message.from_user.id, 'What is your gender? ;)', reply_markup=markup)
     else:
         bot.send_message(message.from_user.id, "This name is invalid! :(")
@@ -122,31 +124,31 @@ def callback_inline(call):
 
 @bot.message_handler(content_types=['text'])
 def reg(message):
-    from_user = message.from_user
-    if User.objects.filter(user_id=from_user.id).last():
-        user = User.objects.filter(user_id=from_user.id)
-        user.update(user_id=from_user.id,
-                    username=from_user.username,
-                    first_name=from_user.first_name,
-                    last_name=from_user.last_name,
+    current_user = msg.from_user
+    if User.objects.filter(user_id=current_user.id).last():
+        user = User.objects.filter(user_id=current_user.id)
+        user.update(user_id=current_user.id,
+                    username=current_user.username,
+                    first_name=current_user.first_name,
+                    last_name=current_user.last_name,
                     name_from_form=name,
                     user_gender=gender_id,
                     user_state=user_state)
-        bot.send_message(from_user.id,
+        bot.send_message(current_user.id,
                          'You were already registered, but we have updated your data :)',
                          reply_markup=menu)
     else:
-        User.objects.create(user_id=from_user.id,
-                            username=from_user.username,
-                            first_name=from_user.first_name,
-                            last_name=from_user.last_name,
+        User.objects.create(user_id=current_user.id,
+                            username=current_user.username,
+                            first_name=current_user.first_name,
+                            last_name=current_user.last_name,
                             name_from_form=name,
                             user_gender=gender_id,
                             user_state=user_state)
-        bot.send_message(from_user.id,
+        bot.send_message(current_user.id,
                          'Registration completed successfully! :)',
                          reply_markup=menu)
-    User.objects.filter(user_id=message.from_user.id).update(user_state=2)
+    User.objects.filter(user_id=current_user.id).update(user_state=2)
     bot.register_next_step_handler(message, handled_text)
 
 
