@@ -11,13 +11,13 @@ from django.core.management.base import BaseCommand
 bot = telebot.TeleBot(settings.TOKEN, parse_mode=None, use_class_middlewares=True, num_threads=5)
 
 
-# class Command(BaseCommand):
-#     help = "Telegram Bot"
-#
-#     def handle(self, *args, **options):
-#         bot.enable_save_next_step_handlers(delay=2)  # Сохранение обработчиков
-#         bot.load_next_step_handlers()  # Загрузка обработчиков
-#         bot.infinity_polling()
+class Command(BaseCommand):
+    help = "Telegram Bot"
+
+    def handle(self, *args, **options):
+        bot.enable_save_next_step_handlers(delay=2)  # Сохранение обработчиков
+        bot.load_next_step_handlers()  # Загрузка обработчиков
+        bot.infinity_polling()
 
 
 start = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)

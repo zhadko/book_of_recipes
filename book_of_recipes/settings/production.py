@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "recipes",
     "accounts",
     "bot_users",
-    "recipesbookbot",
 ]
 
 MIDDLEWARE = [
