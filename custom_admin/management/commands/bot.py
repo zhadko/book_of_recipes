@@ -7,9 +7,7 @@ from django.core.management.base import BaseCommand
 
 import traceback
 
-from recipes.models import Recipe
-from bot_users.models import User
-
+from custom_admin.models import Recipe, User
 
 import os
 from flask import Flask, request
