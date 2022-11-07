@@ -1,6 +1,6 @@
-{% url 'recipes:create' as recipe_create_url%}
-{% url 'recipes:home' as recipes_home_url%}
-{% url 'bot_users:home' as bot_users_home_url%}
+{% url 'custom_admin:create' as recipe_create_url%}
+{% url 'custom_admin:home_recipes' as recipes_home_url%}
+{% url 'custom_admin:home_users' as bot_users_home_url%}
 
 
 <!doctype html>
@@ -29,7 +29,7 @@
               active
              {% endif %}
             ">
-            <a class="nav-link ml-auto" href="{% url 'recipes:home'%}">
+            <a class="nav-link ml-auto" href="{% url 'custom_admin:home_recipes'%}">
              Recipes
             </a>
           </li>
@@ -38,7 +38,7 @@
               active
              {% endif %}
             ">
-            <a class="nav-link ml-auto" href="{% url 'bot_users:home'%}">
+            <a class="nav-link ml-auto" href="{% url 'custom_admin:home_users'%}">
              Users
             </a>
           </li>

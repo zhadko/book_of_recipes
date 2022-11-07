@@ -9,15 +9,15 @@
         {% for object in page_obj %}
             <tr>
                 <td>
-                    <a href="{% url 'recipes:detail' pk=object.pk%}">{{object.name}}</a>
+                    <a href="{% url 'custom_admin:detail' pk=object.pk%}">{{object.name}}</a>
                 </td>
                 <td>
-                    <a href="{% url 'recipes:update' pk=object.pk%}">
+                    <a href="{% url 'custom_admin:update' pk=object.pk%}">
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </a>
                 </td>
                 <td>
-                    <form action="{% url 'recipes:delete' pk=object.pk %}" method="POST">
+                    <form action="{% url 'custom_admin:delete' pk=object.pk %}" method="POST">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
@@ -56,7 +56,7 @@
 {% if user.is_superuser%}
 <div class="row">
     <div class="col-md-4">
-        <form action="{% url 'recipes:create' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'custom_admin:create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" class="btn btn-primary" value="Create">

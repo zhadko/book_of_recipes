@@ -43,9 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "recipes",
     "accounts",
-    "bot_users",
+    "custom_admin",
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,6 @@
 from django import forms
 
-from recipes.models import Recipe
+from custom_admin.models import Recipe
 
 
 class RecipeForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class RecipeForm(forms.ModelForm):
     }))
 
     photo = forms.ImageField(label='Photo', required=False)
-    description = forms.CharField(label='Description of the recipe', widget=forms.Textarea(attrs={"rows" : "5"}))
+    description = forms.CharField(label='Description of the recipe', widget=forms.Textarea(attrs={"rows": "5"}))
 
     class Meta:
         model = Recipe

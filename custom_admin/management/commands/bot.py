@@ -1,14 +1,21 @@
-import traceback
-from unittest.mock import call
-from telebot.asyncio_handler_backends import CancelUpdate, BaseMiddleware
 import telebot
-from django.conf import settings
 from telebot import types
-from recipes.models import Recipe
-from bot_users.models import User
+from telebot.asyncio_handler_backends import CancelUpdate, BaseMiddleware
+
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
+import traceback
+
+from recipes.models import Recipe
+from bot_users.models import User
+
+
+import os
+from flask import Flask, request
+
 bot = telebot.TeleBot(settings.TOKEN, parse_mode=None, use_class_middlewares=True, num_threads=5)
+server = Flask(__name__)
 
 
 class Command(BaseCommand):
@@ -93,10 +100,8 @@ def get_name(message):
     if message.text.isalpha():
         global msg
         msg = message
-        global name
-        name = msg.text
-        global from_user
-        from_user = message.from_user
+        global form_name
+        form_name = msg.text
         bot.send_message(message.from_user.id, 'What is your gender? ;)', reply_markup=markup)
     else:
         bot.send_message(message.from_user.id, "This name is invalid! :(")
@@ -131,7 +136,7 @@ def reg(message):
                     username=current_user.username,
                     first_name=current_user.first_name,
                     last_name=current_user.last_name,
-                    name_from_form=name,
+                    name_from_form=form_name,
                     user_gender=gender_id,
                     user_state=user_state)
         bot.send_message(current_user.id,
@@ -142,7 +147,7 @@ def reg(message):
                             username=current_user.username,
                             first_name=current_user.first_name,
                             last_name=current_user.last_name,
-                            name_from_form=name,
+                            name_from_form=form_name,
                             user_gender=gender_id,
                             user_state=user_state)
         bot.send_message(current_user.id,
@@ -154,7 +159,7 @@ def reg(message):
 
 @bot.message_handler(content_types=['text'])
 def handled_text(message):
-    user = User.objects.filter(user_id=message.from_user.id).last()
+    user = User.objects.filter(user_id=message.chat.id).last()
     user_gender = 'Man' if user.user_gender == 1 else 'Woman'
 
     if message.text == 'About me':
@@ -202,4 +207,22 @@ def recipe_view(message):
 
 bot.setup_middleware(SimpleMiddleware(2))
 
-bot.polling(none_stop=True)
+
+@server.route('/' + settings.TOKEN, methods=['POST'])
+def getMessage():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return "!", 200
+
+
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://recipes--book.herokuapp.com/' + settings.TOKEN)
+    return "!", 200
+
+
+if __name__ == "__main__":
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+

@@ -14,7 +14,7 @@ class AdminLoginForm(forms.Form):
         attrs={
             'class': 'form-control',
             'placeholder': 'Введите password'
-    }))
+        }))
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')

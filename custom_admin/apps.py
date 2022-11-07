@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class BotUsersConfig(AppConfig):
+class CustomAdminConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "bot_users"
+    name = "custom_admin"
