@@ -18,6 +18,7 @@ DB_HOST = os.environ.get('DB_HOST')
 DB_USER = os.environ.get('DB_USER')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 TOKEN = os.environ.get('TOKEN')
+HEROKU = os.environ.get('HEROKU')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent

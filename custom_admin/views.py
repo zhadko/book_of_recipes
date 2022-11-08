@@ -36,13 +36,13 @@ class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'custom_admin/update.html'
-    success_url = reverse_lazy('custom_admin:home')
+    success_url = reverse_lazy('custom_admin:home_recipes')
     success_message = "The Recipe was updated successfully"
 
 
 class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipe
-    success_url = reverse_lazy('custom_admin:home')
+    success_url = reverse_lazy('custom_admin:home_recipes')
 
     def get(self, request, *args, **kwargs):
         messages.success(request, 'The Recipe was deleted successfully')

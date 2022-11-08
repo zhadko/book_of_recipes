@@ -1,33 +1,6 @@
 [
 {
-  "model": "recipes.recipe",
-  "pk": 1,
-  "fields": {
-    "name": "Борщ",
-    "photo": "images/recipes/борщ.jpg",
-    "description": "Текст рецепту"
-  }
-},
-{
-  "model": "recipes.recipe",
-  "pk": 2,
-  "fields": {
-    "name": "Вареники з вишнею",
-    "photo": "images/recipes/вареники2.png",
-    "description": "Текст рецепту"
-  }
-},
-{
-  "model": "recipes.recipe",
-  "pk": 3,
-  "fields": {
-    "name": "Драники",
-    "photo": "",
-    "description": "Текст рецепту"
-  }
-},
-{
-  "model": "bot_users.user",
+  "model": "custom_admin.user",
   "pk": 699006075,
   "fields": {
     "first_name": "Назар",
@@ -36,6 +9,33 @@
     "name_from_form": "Nazar",
     "user_gender": 1,
     "user_state": 3
+  }
+},
+{
+  "model": "custom_admin.recipe",
+  "pk": 1,
+  "fields": {
+    "name": "Борщ",
+    "photo": "images/recipes/борщ_oJ2Aojw.jpg",
+    "description": "Текст рецепту"
+  }
+},
+{
+  "model": "custom_admin.recipe",
+  "pk": 2,
+  "fields": {
+    "name": "Вареники з вишнею",
+    "photo": "images/recipes/вареники_vFpf6Je.jpg",
+    "description": "Текст рецепту"
+  }
+},
+{
+  "model": "custom_admin.recipe",
+  "pk": 3,
+  "fields": {
+    "name": "Драники",
+    "photo": "",
+    "description": "Текст рецепту"
   }
 }
 ]
