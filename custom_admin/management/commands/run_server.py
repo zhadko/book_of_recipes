@@ -6,6 +6,16 @@ from custom_admin.management.commands.bot_handlers import bot
 from django.conf import settings
 
 
+from django.core.management.base import BaseCommand
+
+
+class Command(BaseCommand):
+    help = "Telegram Bot"
+
+    def handle(self, *args, **options):
+        pass
+
+
 # Deploy on heroku
 if "HEROKU" in list(os.environ.keys()):
     logger = telebot.logger
