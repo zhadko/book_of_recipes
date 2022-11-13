@@ -1,6 +1,12 @@
-from telebot import types
-from custom_admin.models import Recipe
+import os
 
+import django
+from telebot import types
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'book_of_recipes.settings'
+django.setup()
+
+from custom_admin.models import Recipe
 
 gender_markup = types.InlineKeyboardMarkup(row_width=1)
 btn1 = types.InlineKeyboardButton('Man', callback_data='Man')

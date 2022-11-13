@@ -6,8 +6,6 @@ from custom_admin.management.commands.bot_handlers import bot
 from django.conf import settings
 
 
-from django.core.management.base import BaseCommand
-
 if "HEROKU" in list(os.environ.keys()):
     logger = telebot.logger
     logger.setLevel(logging.INFO)

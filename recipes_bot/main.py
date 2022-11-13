@@ -1,3 +1,9 @@
+import os
+import django
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'book_of_recipes.settings'
+django.setup()
+
 import telebot
 from telebot import custom_filters
 from telebot.handler_backends import CancelUpdate, BaseMiddleware, State, StatesGroup

@@ -1,44 +1,18 @@
-from custom_admin.management.commands.main import bot, MyStates
-from custom_admin.management.commands.messages import *
-from custom_admin.management.commands.markups import *
-from custom_admin.models import Recipe, User
-import traceback
-from django.core.management.base import BaseCommand
 import os
+import django
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'book_of_recipes.settings'
+django.setup()
+
 import telebot
 from flask import Flask, request
 import logging
+from recipes_bot.main import bot, MyStates
+from recipes_bot.messages import *
+from recipes_bot.markups import *
+import traceback
 from django.conf import settings
-
-
-class Command(BaseCommand):
-    help = "Telegram Bot"
-
-    def handle(self, *args, **options):
-        if "HEROKU" in list(os.environ.keys()):
-            logger = telebot.logger
-            logger.setLevel(logging.INFO)
-
-            server = Flask(__name__)
-
-            @server.route('/' + settings.TOKEN, methods=['POST'])
-            def get_message():
-                json_string = request.get_data().decode('utf-8')
-                update = telebot.types.Update.de_json(json_string)
-                bot.process_new_updates([update])
-                return "!", 200
-
-            @server.route("/")
-            def webhook():
-                bot.remove_webhook()
-                bot.set_webhook(url='https://recipes--book.herokuapp.com/' + settings.TOKEN)
-                return "?", 200
-
-            if __name__ == "__main__":
-                server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-        else:
-            bot.remove_webhook()
-            bot.polling(none_stop=True)
+from custom_admin.models import Recipe, User
 
 
 @bot.message_handler(state='*', commands=['start'])
@@ -165,3 +139,32 @@ def notification_genderform(call):
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                           text=RESTART_NOTIFICATION,
                           reply_markup=None)
+
+
+if "HEROKU" in list(os.environ.keys()):
+    logger = telebot.logger
+    logger.setLevel(logging.INFO)
+
+    server = Flask(__name__)
+
+
+    @server.route('/' + settings.TOKEN, methods=['POST'])
+    def get_message():
+        json_string = request.get_data().decode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        bot.process_new_updates([update])
+        return "!", 200
+
+
+    @server.route("/")
+    def webhook():
+        bot.remove_webhook()
+        bot.set_webhook(url='https://recipes--book.herokuapp.com/' + settings.TOKEN)
+        return "?", 200
+
+
+    if __name__ == "__main__":
+        server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+else:
+    bot.remove_webhook()
+    bot.polling(none_stop=True)

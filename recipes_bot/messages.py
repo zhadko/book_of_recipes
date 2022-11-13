@@ -14,4 +14,5 @@ CHOOSE_RECIPE = "Choose a recipe:"
 RE_ENTER = 'Re-enter the data'
 BACK = 'Back to menu'
 INVALID_RECIPE = 'I don`t know this recipe :('
-RESTART_NOTIFICATION = 'Hi, the bot has been restarted by admin, please type "/start" to continue using. Thank you ;)'
+RESTART_NOTIFICATION = 'Hi, the recipes_bot has been restarted by admin,\n' \
+                       'please type "/start" to continue using. Thank you ;)'
