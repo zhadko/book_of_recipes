@@ -8,30 +8,30 @@
     "username": "corrrvo",
     "name_from_form": "Nazar",
     "user_gender": 1,
-    "user_state": 3
+    "user_state": 2
   }
 },
 {
   "model": "custom_admin.recipe",
-  "pk": 1,
+  "pk": 4,
   "fields": {
     "name": "Борщ",
-    "photo": "images/recipes/борщ_oJ2Aojw.jpg",
+    "photo": "images/recipes/борщ.jpg",
     "description": "Текст рецепту"
   }
 },
 {
   "model": "custom_admin.recipe",
-  "pk": 2,
+  "pk": 5,
   "fields": {
     "name": "Вареники з вишнею",
-    "photo": "images/recipes/вареники_vFpf6Je.jpg",
+    "photo": "images/recipes/вареники.jpg",
     "description": "Текст рецепту"
   }
 },
 {
   "model": "custom_admin.recipe",
-  "pk": 3,
+  "pk": 6,
   "fields": {
     "name": "Драники",
     "photo": "",
