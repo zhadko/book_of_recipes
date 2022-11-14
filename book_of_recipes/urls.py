@@ -25,7 +25,7 @@ from recipe_bot.views import TelegramWebhookHandlerView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('custom_admin/', include(('custom_admin.urls', 'custom_admin'))),
-    path('home/', home, name='home'),
+    path('', home, name='home'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
     path(f"webhook/", csrf_exempt(TelegramWebhookHandlerView.as_view()), name='bot_webhook'),
 ]
