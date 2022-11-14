@@ -19,13 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from book_of_recipes.views import home
+from recipe_bot.views import UpdateBot
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('custom_admin/', include(('custom_admin.urls', 'custom_admin'))),
     path('', home, name='home'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
-    path('bot/', include(('recipe_bot.urls', 'recipe_bot'))),
+    path('{}'.format(settings.TOKEN), csrf_exempt(UpdateBot.as_view())),
 ]
 
 if settings.DEBUG:
