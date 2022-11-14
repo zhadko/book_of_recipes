@@ -1,10 +1,7 @@
 import telebot
 import os
-
-from django.core.exceptions import PermissionDenied
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views import View
 from flask import Flask, request
 import logging
@@ -16,29 +13,15 @@ from django.conf import settings
 from custom_admin.models import Recipe, User
 
 
-# class UpdateBot(View):
-#     def get(self, request, *args, **kwargs):
-#         return HttpResponse("Бот запусчен и работает.")
-#
-#     def post(self, request, *args, **kwargs):
-#         json_str = request.body.decode('UTF-8')
-#         update = telebot.types.Update.de_json(json_str)
-#         bot.process_new_updates([update])
-#
-#         return Response({'code': 200})
-
-@csrf_exempt
-def bot_func(request):
-    if request.META['CONTENT_TYPE'] == 'application/json':
-
-        json_data = request.body.decode('utf-8')
-        update = telebot.types.Update.de_json(json_data)
-        bot.process_new_updates([update])
-
-        return HttpResponse("")
-
-    else:
-        raise PermissionDenied
+class TelegramWebhookHandlerView(View):
+    def post(self, request, *args, **kwargs):
+        print(request)
+        if request.headers.get("content-type") == "application/json":
+            json_string = request.body.decode("utf-8")
+            update = telebot.types.Update.de_json(json_string)
+            bot.process_new_updates([update])
+            return JsonResponse(status=200, data={"status": "true"})
+        return JsonResponse(status=403, data={"status": "false"})
 
 
 @bot.message_handler(state='*', commands=['start'])
@@ -165,30 +148,3 @@ def notification_genderform(call):
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                           text=RESTART_NOTIFICATION,
                           reply_markup=None)
-
-
-if "HEROKU" in list(os.environ.keys()):
-    logger = telebot.logger
-    logger.setLevel(logging.INFO)
-
-    server = Flask(__name__)
-
-    @server.route('/' + settings.TOKEN, methods=['POST'])
-    def get_message():
-        json_string = request.get_data().decode('utf-8')
-        update = telebot.types.Update.de_json(json_string)
-        bot.process_new_updates([update])
-        return "!", 200
-
-    @server.route("/")
-    def webhook():
-        bot.remove_webhook()
-        bot.set_webhook(url='https://recipes--book.herokuapp.com/' + settings.TOKEN)
-        return "?", 200
-
-    if __name__ == "__main__":
-        server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-
-else:
-    bot.remove_webhook()
-    bot.polling(none_stop=True)

@@ -19,15 +19,15 @@ from django.contrib import admin
 from django.urls import path, include
 
 from book_of_recipes.views import home
-# from django.views.decorators.csrf import csrf_exempt
-from recipe_bot.views import bot_func
+from django.views.decorators.csrf import csrf_exempt
+from recipe_bot.views import TelegramWebhookHandlerView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('custom_admin/', include(('custom_admin.urls', 'custom_admin'))),
     path('home/', home, name='home'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
-    path('{}'.format(settings.TOKEN), bot_func, name="bot_func"),
+    path(f"webhook/", csrf_exempt(TelegramWebhookHandlerView.as_view()), name='bot_webhook'),
 ]
 
 if settings.DEBUG:
