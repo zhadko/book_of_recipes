@@ -1,5 +1,8 @@
 import telebot
 import os
+
+from django.core.exceptions import PermissionDenied
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from django.http import HttpResponse
 from django.views import View
@@ -23,6 +26,19 @@ from custom_admin.models import Recipe, User
 #         bot.process_new_updates([update])
 #
 #         return Response({'code': 200})
+
+@csrf_exempt
+def bot_func(request):
+    if request.META['CONTENT_TYPE'] == 'application/json':
+
+        json_data = request.body.decode('utf-8')
+        update = telebot.types.Update.de_json(json_data)
+        bot.process_new_updates([update])
+
+        return HttpResponse("")
+
+    else:
+        raise PermissionDenied
 
 
 @bot.message_handler(state='*', commands=['start'])
