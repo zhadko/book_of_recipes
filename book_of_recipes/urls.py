@@ -27,7 +27,7 @@ urlpatterns = [
     path('custom_admin/', include(('custom_admin.urls', 'custom_admin'))),
     path('home/', home, name='home'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
-    path('/{}'.format(settings.TOKEN), bot_func, name="bot_func"),
+    path('{}'.format(settings.TOKEN), bot_func, name="bot_func"),
 ]
 
 if settings.DEBUG:
