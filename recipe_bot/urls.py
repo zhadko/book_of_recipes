@@ -1,7 +1,8 @@
 from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
 
-from recipe_bot.views import run_bot
+from recipe_bot.views import TutorialBotView
 
 urlpatterns = [
-    path('run/', run_bot, name='run_bot'),
+    path('run/', csrf_exempt(TutorialBotView.as_view()), name='run_bot'),
 ]
