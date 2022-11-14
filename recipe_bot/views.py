@@ -13,16 +13,16 @@ from django.conf import settings
 from custom_admin.models import Recipe, User
 
 
-class UpdateBot(View):
-    def get(self, request, *args, **kwargs):
-        return HttpResponse("Бот запусчен и работает.")
-
-    def post(self, request, *args, **kwargs):
-        json_str = request.body.decode('UTF-8')
-        update = telebot.types.Update.de_json(json_str)
-        bot.process_new_updates([update])
-
-        return Response({'code': 200})
+# class UpdateBot(View):
+#     def get(self, request, *args, **kwargs):
+#         return HttpResponse("Бот запусчен и работает.")
+#
+#     def post(self, request, *args, **kwargs):
+#         json_str = request.body.decode('UTF-8')
+#         update = telebot.types.Update.de_json(json_str)
+#         bot.process_new_updates([update])
+#
+#         return Response({'code': 200})
 
 
 @bot.message_handler(state='*', commands=['start'])

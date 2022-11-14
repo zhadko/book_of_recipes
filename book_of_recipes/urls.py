@@ -27,7 +27,7 @@ urlpatterns = [
     path('custom_admin/', include(('custom_admin.urls', 'custom_admin'))),
     path('home/', home, name='home'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
-    path('{}'.format(settings.TOKEN), csrf_exempt(UpdateBot.as_view())),
+    # path('{}'.format(settings.TOKEN), csrf_exempt(UpdateBot.as_view())),
 ]
 
 if settings.DEBUG:
