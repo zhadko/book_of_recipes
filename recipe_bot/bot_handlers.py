@@ -1,15 +1,10 @@
-import os
-import django
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'book_of_recipes.settings'
-django.setup()
-
 import telebot
+import os
 from flask import Flask, request
 import logging
-from recipes_bot.main import bot, MyStates
-from recipes_bot.messages import *
-from recipes_bot.markups import *
+from recipe_bot.main import bot, MyStates
+from recipe_bot.messages import *
+from recipe_bot.markups import *
 import traceback
 from django.conf import settings
 from custom_admin.models import Recipe, User

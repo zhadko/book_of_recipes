@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -12,5 +13,16 @@
 <br>
 <h5>Bot Link:</h5>
 <h7><a href="https://t.me/RecipesBookk_bot">RecipesBookk_bot</a></h7>
+<br>
+<br>
+{% if user.is_superuser%}
+<a href="{% url 'recipe_bot:run_bot'%}" class="run_bot">
+    <button type="button" class="btn btn-primary" id="onetime">
+        Run Bot
+    </button>
+</a>
+<br>
+<br>
+{% endif %}
 
 {% endblock %}

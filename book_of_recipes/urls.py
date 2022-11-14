@@ -25,6 +25,7 @@ urlpatterns = [
     path('custom_admin/', include(('custom_admin.urls', 'custom_admin'))),
     path('', home, name='home'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
+    path('bot/', include(('recipe_bot.urls', 'recipe_bot'))),
 ]
 
 if settings.DEBUG:

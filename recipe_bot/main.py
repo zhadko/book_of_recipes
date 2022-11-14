@@ -1,9 +1,3 @@
-import os
-import django
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'book_of_recipes.settings'
-django.setup()
-
 import telebot
 from telebot import custom_filters
 from telebot.handler_backends import CancelUpdate, BaseMiddleware, State, StatesGroup
@@ -21,7 +15,7 @@ bot = telebot.TeleBot(settings.TOKEN,
                       use_class_middlewares=True,
                       num_threads=5,
                       state_storage=state_storage)
-print(bot.get_me())
+print(bot.get_me(), '\n')
 
 
 # Classes
