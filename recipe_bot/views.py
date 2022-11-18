@@ -1,15 +1,10 @@
 import telebot
-import os
-from rest_framework.response import Response
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views import View
-from flask import Flask, request
-import logging
 from recipe_bot.main import bot, MyStates
 from recipe_bot.messages import *
 from recipe_bot.markups import *
 import traceback
-from django.conf import settings
 from custom_admin.models import Recipe, User
 
 
