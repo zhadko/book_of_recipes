@@ -131,15 +131,15 @@ def recipe_view(message):
             bot.set_state(message.from_user.id, MyStates.recipes_menu, message.chat.id)
 
 
-# Restart notification
-@bot.message_handler(state=None)
-def notification(message):
-    bot.send_message(message.chat.id, RESTART_NOTIFICATION)
-
-
-# Restart notification when genderform is not finished
-@bot.callback_query_handler(state=None, func=lambda call: True)
-def notification_genderform(call):
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                          text=RESTART_NOTIFICATION,
-                          reply_markup=None)
+# # Restart notification
+# @bot.message_handler(state=None)
+# def notification(message):
+#     bot.send_message(message.chat.id, RESTART_NOTIFICATION)
+#
+#
+# # Restart notification when genderform is not finished
+# @bot.callback_query_handler(state=None, func=lambda call: True)
+# def notification_genderform(call):
+#     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+#                           text=RESTART_NOTIFICATION,
+#                           reply_markup=None)
