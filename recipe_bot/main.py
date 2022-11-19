@@ -1,32 +1,22 @@
 import telebot
 from telebot import custom_filters
-from telebot.handler_backends import CancelUpdate, BaseMiddleware, State, StatesGroup
+from telebot.handler_backends import CancelUpdate, BaseMiddleware
 
 # States storage
 from telebot.storage import StateMemoryStorage
-
+from custom_admin import StateManager
 from django.conf import settings
 
+
 # Main Variables
-state_storage = StateMemoryStorage()
 
 bot = telebot.TeleBot(settings.TOKEN,
                       parse_mode=None,
                       use_class_middlewares=True,
-                      num_threads=5,
-                      state_storage=state_storage)
+                      num_threads=5)
 print(bot.get_me(), '\n')
 
-
-# Classes
-# State class
-class MyStates(StatesGroup):
-    reg = State()
-    main_menu = State()
-    recipes_menu = State()
-
-
-bot.add_custom_filter(custom_filters.StateFilter(bot))
+bot.add_custom_filter(StateManager.StateFilter(bot))
 
 
 # Antiflood class

@@ -15,13 +15,13 @@ class User(models.Model):
                                 unique=True,
                                 blank=True,
                                 null=True)
-    name_from_form = models.CharField(max_length=50)
+    name_from_form = models.CharField(max_length=50, blank=True, null=True)
 
     GENDERS = [
         (1, "man"),
         (2, "woman"),
     ]
-    user_gender = models.PositiveSmallIntegerField(choices=GENDERS, unique=False)
+    user_gender = models.PositiveSmallIntegerField(choices=GENDERS, unique=False, blank=True, null=True)
     user_id = models.PositiveIntegerField(primary_key=True, unique=True)
 
     STATES = [
