@@ -1,7 +1,7 @@
 [
 {
   "model": "custom_admin.recipe",
-  "pk": 4,
+  "pk": 1,
   "fields": {
     "name": "Борщ",
     "photo": "images/recipes/борщ.jpg",
@@ -10,7 +10,7 @@
 },
 {
   "model": "custom_admin.recipe",
-  "pk": 5,
+  "pk": 2,
   "fields": {
     "name": "Вареники з вишнею",
     "photo": "images/recipes/вареники.jpg",
@@ -19,7 +19,7 @@
 },
 {
   "model": "custom_admin.recipe",
-  "pk": 6,
+  "pk": 3,
   "fields": {
     "name": "Драники",
     "photo": "",

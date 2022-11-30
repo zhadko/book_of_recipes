@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/
 """
 
 import os
+
 from recipe_bot.bot_package.main import bot
 from django.conf import settings
 
