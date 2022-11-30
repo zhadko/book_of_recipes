@@ -30,6 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = SECRET_KEY
 TOKEN = TOKEN
 
+HEROKU_URL = "https://recipes--book.herokuapp.com"
+BOT_URL = HEROKU_URL
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 

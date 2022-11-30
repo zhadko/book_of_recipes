@@ -25,11 +25,11 @@ class User(models.Model):
     user_id = models.PositiveIntegerField(primary_key=True, unique=True)
 
     STATES = [
-        (1, "start_form"),
-        (2, "main_menu"),
-        (3, "recipe_menu"),
+        ("start_form", "start_form"),
+        ("main_menu", "main_menu"),
+        ("recipe_menu", "recipe_menu"),
     ]
-    user_state = models.PositiveSmallIntegerField(choices=STATES)
+    user_state = models.CharField(max_length=20, choices=STATES)
 
     def __str__(self):
         return self.username

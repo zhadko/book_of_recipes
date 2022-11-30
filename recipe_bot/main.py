@@ -4,7 +4,7 @@ from telebot.handler_backends import CancelUpdate, BaseMiddleware
 
 # States storage
 from telebot.storage import StateMemoryStorage
-from custom_admin import StateManager
+from recipe_bot import StateManager
 from django.conf import settings
 
 

@@ -8,9 +8,15 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/
 """
 
 import os
+from recipe_bot.main import bot
+from django.conf import settings
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "book_of_recipes.settings")
 
 application = get_wsgi_application()
+
+# Setting up Webhook
+bot.remove_webhook()
+bot.set_webhook(url=f"{settings.BOT_URL + '/webhook/'}")
