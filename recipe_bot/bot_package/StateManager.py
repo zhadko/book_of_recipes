@@ -12,7 +12,7 @@ class StateFilter(AdvancedCustomFilter):
     .. code-block:: python3
         :caption: Example on using this filter:
 
-        @bot.message_handler(state=1)
+        @bot_package.message_handler(state=1)
         # your function
     """
 

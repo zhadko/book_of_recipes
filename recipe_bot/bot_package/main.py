@@ -1,10 +1,8 @@
 import telebot
-from telebot import custom_filters
 from telebot.handler_backends import CancelUpdate, BaseMiddleware
 
 # States storage
-from telebot.storage import StateMemoryStorage
-from recipe_bot import StateManager
+from .StateManager import StateFilter
 from django.conf import settings
 
 
@@ -16,7 +14,7 @@ bot = telebot.TeleBot(settings.TOKEN,
                       num_threads=5)
 print(bot.get_me(), '\n')
 
-bot.add_custom_filter(StateManager.StateFilter(bot))
+bot.add_custom_filter(StateFilter(bot))
 
 
 # Antiflood class

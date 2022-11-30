@@ -1,8 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
-
 # bot_users model
 class User(models.Model):
     first_name = models.CharField(max_length=50,
@@ -25,7 +23,8 @@ class User(models.Model):
     user_id = models.PositiveIntegerField(primary_key=True, unique=True)
 
     STATES = [
-        ("start_form", "start_form"),
+        ("name_form", "name_form"),
+        ("gender_form", "gender_form"),
         ("main_menu", "main_menu"),
         ("recipe_menu", "recipe_menu"),
     ]
